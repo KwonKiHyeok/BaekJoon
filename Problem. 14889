@@ -1,0 +1,38 @@
+# Baekjoon 14889번: 스타트와 링크
+
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+soccer = [[] for _ in range(N)]
+v = [None] * N
+v_lst = []
+minimum = 999999
+
+for i in range(N):
+    k = input().split()
+    for j in k:
+        soccer[i].append(int(j))
+
+def cal(start_lst, link_lst):
+    start = link = 0
+    for i in range(N//2):
+        for j in range(N//2):
+            start += soccer[start_lst[i]][start_lst[j]]
+            link += soccer[link_lst[i]][link_lst[j]]
+    return abs(start-link)
+                
+def dfs(people, start_lst, link_lst):
+    global minimum
+    
+    if people == N:
+        if len(start_lst) == len(link_lst):
+            minimum = min(minimum, cal(start_lst, link_lst))
+        return
+    
+    dfs(people + 1, start_lst + [people], link_lst)
+    dfs(people + 1, start_lst, link_lst + [people])
+            
+
+dfs(0, [], [])
+print(minimum)

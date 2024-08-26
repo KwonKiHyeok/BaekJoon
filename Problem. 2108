@@ -1,0 +1,29 @@
+# Baekjoon 2108번: 통계학
+
+import sys
+from collections import Counter
+
+input = sys.stdin.readline
+N = int(input())
+array = []
+
+for i in range(N):
+    k = int(input())
+    array.append(k)
+
+array.sort()
+print(round(sum(array) / len(array)))
+print(array[len(array) // 2])
+
+count = Counter(array)
+most = count.most_common(2)
+
+if N == 1:
+    print(array[0])
+elif most[0][1] == most[1][1]:
+    print(most[1][0])
+else:
+    
+    print(most[0][0])
+
+print(max(array) - min(array))

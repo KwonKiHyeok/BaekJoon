@@ -1,0 +1,23 @@
+# Baekjoon 1074번: Z
+
+import sys
+input = sys.stdin.readline
+N, r, c = list(map(int, input().split()))
+
+def Z_func(N, r, c):
+    
+    if N == 0:
+        return 0
+    half = 2 ** (N-1)
+    
+    if r < half and c < half: # 왼쪽 위 사분면
+        return Z_func(N-1, r, c)
+    elif r < half and c >= half: # 오른쪽 위 사분면
+        return half * half + Z_func(N - 1, r, c - half)
+    elif r >= half and c < half: # 왼쪽 아래 사분면
+        return 2 * half * half + Z_func(N - 1, r - half, c)
+    else: # 오른쪽 아래 사분면
+        return 3 * half * half + Z_func(N - 1, r - half, c - half)
+
+result = Z_func(N, r, c)
+print(result)

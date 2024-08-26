@@ -1,0 +1,48 @@
+# Baekjoon 2630번: 색종이 만들기
+
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+array = [[None] for _ in range(N)]
+blue, white = 0, 0
+
+for i in range(N):
+    array[i] = list(map(int, input().split()))
+
+def square(x, y, N):
+    global blue, white
+    
+    if N == 1 and array[y][x] == 1:
+        blue += 1
+        return
+    elif N == 1 and array[y][x] == 0:
+        white += 1
+        return
+    
+    cnt = 0
+    
+    for i in range(y, y + N):
+        for j in range(x, x + N):
+            if array[i][j] == 1:
+                cnt += 1
+    
+    if cnt == N * N:
+        blue += 1
+        return
+    else:
+        if cnt == 0:
+            white += 1
+            return
+        
+        N = N // 2
+        square(x, y, N)
+        square(x, y + N, N)
+        square(x + N, y, N)
+        square(x + N, y + N, N)
+
+
+square(0, 0, N)
+
+print(white)
+print(blue)

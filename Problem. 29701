@@ -1,0 +1,51 @@
+# baekjoon 29701번: 모스 부호
+
+import sys
+input = sys.stdin.readline
+
+table = [('A', '.-'), ('B', '-...'), ('C', '-.-.'), ('D', '-..'), ('E', '.'),
+        ('F', '..-.'), ('G', '--.'), ('H', '....'), ('I', '..'), ('J', '.---'),
+        ('K', '-.-'), ('L', '.-..'), ('M', '--'), ('N', '-.'), ('O', '---'),
+        ('P', '.--.'), ('Q', '--.-'), ('R', '.-.'), ('S', '...'), ('T', '-'),
+        ('U', '..-'), ('V', '...-'), ('W', '.--'), ('X', '-..-'), ('Y', '-.--'), ('Z', '--..'), ('1', '.----'), ('2', '..---'), ('3', '...--'), ('4', '....-'), ('5', '.....'), ('6', '-....'), ('7', '--...'), ('8', '---..'), ('9', '----.'), ('0', '-----'), (',', '--..--'), ('.', '.-.-.-'), ('?', '..--..'), (':', '---...'), ('-', '-....-'), ('@', '.--.-.')]
+
+class BTNode:
+    def __init__(self, elem, left = None, right = None):
+        self.data = elem
+        self.left = left
+        self.right = right
+    
+def make_morse_tree():
+    root = BTNode(None, None, None)
+    
+    for tp in table:
+        code = tp[1]
+        node = root
+        for c in code:
+            if c == '.':
+                if node.left == None:
+                    node.left = BTNode(None, None, None)
+                node = node.left
+            elif c == '-':
+                if node.right == None:
+                    node.right = BTNode(None, None, None)
+                node = node.right
+        node.data = tp[0]
+    
+    return root
+
+def decode(root, code):
+    node = root
+    for c in code:
+        if c == '.': node = node.left
+        elif c == '-': node = node.right
+    return node.data
+
+morseCodeTree = make_morse_tree()
+N = int(input())
+arr = list(input().split())
+
+for code in arr:
+    ch = decode(morseCodeTree, code)
+    print(ch, end = '')
+

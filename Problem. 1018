@@ -1,0 +1,55 @@
+# Baekjoon 1018번: 체스판 다시 칠하기
+
+import sys
+input = sys.stdin.readline
+
+N, M = list(map(int,input().split()))
+board = [[] for _ in range(N)]
+num_board = [[] for _ in range(N)]
+
+for i in range(N):
+    K = input()
+    for j in K:
+        board[i].append(j)
+
+def board_setting(color):
+    count = 0
+    for i in range(N):
+        for j in range(M):
+            if board[i][j] == color and count == 0: # 원래자리에 원래 색
+                num_board[i].append(0)
+                count = 1
+            elif board[i][j] != color and count == 1: # 원래자리에 원래 색
+                num_board[i].append(0)
+                count = 0
+            elif board[i][j] == color and count == 1:
+                num_board[i].append(1)
+                count = 0
+            elif board[i][j] != color and count == 0:
+                num_board[i].append(1)
+                count = 1
+        count = 0
+        if color == 'W':
+            color = 'B'
+        else:
+            color = 'W'
+
+board_setting('W')
+height = width = 0
+minimum = 9999
+
+for height in range(N-7):
+    for width in range(M-7):
+        res = 0
+        for i in range(height, height+8):
+            for j in range(width, width+8):
+                res += num_board[i][j]
+        
+        if res < 64-res:
+            if res < minimum:
+                minimum = res
+        else:    
+            if 64-res < minimum:
+                minimum = 64 - res
+
+print(minimum)

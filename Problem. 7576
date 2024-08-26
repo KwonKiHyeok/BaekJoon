@@ -1,0 +1,45 @@
+# Baekjoon 7576번: 토마토
+
+import sys
+from collections import deque
+input = sys.stdin.readline
+sys.setrecursionlimit(10**9)
+
+def BFS():
+    v = [[0] * N for _ in range(M)]
+    queue = deque()
+    count = 0
+    for i in range(len(tomato)):
+        for j in range(len(tomato[0])):
+            if tomato[i][j] == 1: # 익은 토마토
+                queue.append((i, j))
+                v[i][j] = 1
+            elif tomato[i][j] == 0: # 안익은 토마토
+                count += 1
+    
+    while queue:
+        i, j = queue.popleft()
+        # 4 방향, 범위내, 미방문, tomato[] == 0
+        for di, dj in ((-1, 0), (0, -1), (1, 0), (0, 1)):
+            ni, nj = i+di, j+dj
+
+            if 0<=ni<len(tomato) and 0<=nj<len(tomato[0]) and tomato[ni][nj] == 0 and v[ni][nj] == 0:
+                queue.append((ni, nj))
+                v[ni][nj] = v[i][j] + 1
+                count -= 1 # 안익은 토마토 1개 익음
+                
+    if count == 0: # 모든 토마토가 익은 경우
+        return v[i][j] - 1 
+    else:
+        return -1 
+
+N, M = list(map(int, input().split()))
+tomato = [[] for _ in range(M)]
+
+for i in range(M):
+    ptr = list(map(int, input().split()))
+    for j in range(N):
+        tomato[i].append(ptr[j])
+        
+print(BFS())
+    

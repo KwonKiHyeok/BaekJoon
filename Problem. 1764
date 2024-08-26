@@ -1,0 +1,21 @@
+# Baekjoon 1764번: 듣보잡
+  
+import sys
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+
+not_listen = set(input().rstrip() for _ in range(N))
+result = []
+
+for i in range(M):
+    name = input().rstrip()
+    
+    if name in not_listen:
+        result.append(name)
+
+result.sort()
+
+print(len(result))
+for i in result:
+    print(i)

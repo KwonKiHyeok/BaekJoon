@@ -1,0 +1,24 @@
+# Baekjoon 9375번: 패션왕 신해빈
+
+import sys
+input = sys.stdin.readline
+
+T = int(input())
+    
+for i in range(T):
+    N = int(input())
+    table = {}
+    for j in range(N):
+        name, sort = input().strip().split()
+        if sort in table:
+            table[sort] += 1
+        else:
+            table[sort] = 1
+    
+    result = 1
+    
+    for key in table:
+        result *= table.get(key) + 1
+    
+    print(result - 1)
+

@@ -1,0 +1,33 @@
+# Baekjoon 1654번: 랜선 자르기
+
+import sys
+input = sys.stdin.readline
+
+N, M = list(map(int, input().split()))
+array = []
+
+for i in range(N):
+    array.append(int(input()))    
+
+def solution():
+    global M
+    low, high = 1, max(array)
+    
+    while low <= high:
+        height = 0
+        pivot = (low + high) // 2
+        
+        for i in range(len(array)):
+            height += array[i] // pivot
+        
+        if height < M:
+            high = pivot - 1
+        else:
+            low = pivot + 1
+        
+    return high
+
+
+
+print(solution())
+    

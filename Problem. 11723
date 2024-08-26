@@ -1,0 +1,48 @@
+# Baekjoon 11723번: 집합
+
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+
+class SET:
+    def __init__(self):
+        self.array = 0
+        
+    def add_func(self, x):
+        self.array |= (1 << x)
+    
+    def remove_func(self, x):
+        self.array &= ~(1 << x)
+    
+    def check_func(self, x):
+        print(1 if self.array & (1 << x) else 0)
+    
+    def toggle_func(self, x):
+        self.array ^= (1 << x)
+    
+    def all_func(self):
+        self.array = (1 << 21) - 1
+    
+    def empry_func(self):
+        self.array = 0
+
+set_class = SET()
+
+for i in range(N):
+    func = list(input().split())
+    
+    if func[0] == "add":
+        set_class.add_func(int(func[1]))
+    elif func[0] == "remove":
+        set_class.remove_func(int(func[1]))
+    elif func[0] == "check":
+        set_class.check_func(int(func[1]))
+    elif func[0] == "toggle":
+        set_class.toggle_func(int(func[1]))
+    elif func[0] == "all":
+        set_class.all_func()
+    elif func[0] == "empty":
+        set_class.empry_func()
+    else:
+        pass

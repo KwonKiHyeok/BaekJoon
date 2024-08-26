@@ -1,0 +1,60 @@
+# baekjoon 28217번: 두 정삼각형
+
+from copy import deepcopy
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+A = []
+B = []
+
+for i in range(0, N):
+    A.append(input().split(" "))
+
+for i in range(0, N):
+    B.append(input().split(" "))
+    
+def symmetry(tri): # 대칭 함수
+    for j in range(0, len(tri)):
+        for i in range(0, len(tri[j]) // 2):
+            tri[j][i], tri[j][len(tri[j]) - (i + 1)] = tri[j][len(tri[j]) - (i + 1)], tri[j][i]
+    return tri
+
+def rotate(tri): # 회전 함수
+    temp = deepcopy(tri)
+    N = len(tri)
+    
+    for i in range(0, N):
+        for j in range(0, N - i):
+            tri[N-(i+1)][j] = temp[N-(1+j)][N-(1+j+i)]
+    return tri
+
+def comparison(A, B):
+    N = len(A)
+    cnt = 0
+    for i in range(0, N):
+        for j in range(0, N - i):
+            if A[N-(i+1)][j] != B[N-(1+i)][j]:
+                cnt += 1     
+    return cnt
+
+cnt = [None] * 6
+
+cnt[0] = comparison(A, B) # 1. 원상태 비교
+A = rotate(A)
+cnt[1] = comparison(A, B) # 2. 회전 1회 비교
+A = symmetry(A)
+cnt[2] = comparison(A, B) # 3. 회전 1회, 대칭 1회 비교
+A = rotate(A)
+cnt[3] = comparison(A, B) # 4. 회전 2회, 대칭 1회 비교
+A = rotate(A)
+cnt[4] = comparison(A, B) # 5. 회전 3회, 대칭 1회 비교
+A = symmetry(A)
+cnt[5] = comparison(A, B) # 6. 회전 3회, 대칭 2회 비교
+
+min = cnt[0]
+for i in range(1, 6):
+    if min > cnt[i]:
+        min = cnt[i]
+
+print(min)

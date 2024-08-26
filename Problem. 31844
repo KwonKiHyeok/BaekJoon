@@ -1,0 +1,26 @@
+#baekjoon 31844번: 창고지기
+
+import sys
+input = sys.stdin.readline
+
+N = input()
+array = []
+x, y, z = None, None, None
+
+for i in range(len(N)):
+    array.append(N[i])
+    
+    if N[i] == '@':
+        x = i
+    elif N[i] == '#':
+        y = i
+    elif N[i] == '!':
+        z = i
+
+if (y < x and z < y):
+    print(x-z-1)
+elif (x < y and y < z):
+    print(z-x-1)
+else:
+    print(-1)
+    

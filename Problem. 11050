@@ -1,0 +1,23 @@
+# baekjoon 11050번: 이항 계수 1
+
+import sys
+input = sys.stdin.readline
+
+N, K = list(map(int, input().split()))
+
+class Coefficient():
+    def __init__(self, N, K):
+        self.N = N
+        self.K = K
+    
+    def factorial(self, X):
+        if X == 0:
+            return 1
+        return X * self.factorial(X-1)
+    
+    def cal(self):
+        return self.factorial(N) / (self.factorial(N-K)*self.factorial(K))
+    
+coe = Coefficient(N, K)
+
+print(int(coe.cal()))

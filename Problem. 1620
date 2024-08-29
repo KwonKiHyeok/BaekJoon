@@ -1,0 +1,24 @@
+# Baekjoon 1620번: 나는야 포켓몬 마스터 이다솜
+import sys
+input = sys.stdin.readline
+
+N, M = list(map(int, input().split()))
+
+name_table = {}
+index_table = []
+
+for i in range(N): # 포켓몬 정보 추가
+    info = input().strip()
+    
+    index_table.append(info)
+    name_table[info] = i + 1
+
+for i in range(M):
+    problem = input().strip()
+    
+    if problem.isdigit(): # 숫자인 경우
+        print(index_table[int(problem) - 1])
+    else:
+        
+        print(name_table[problem])
+    

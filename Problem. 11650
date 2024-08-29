@@ -1,0 +1,16 @@
+# backjoon 11650번: 좌표 정렬하기
+
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+A = []
+
+for i in range(0, N):
+    x, y = map(int, input().split())
+    A.append((x, y))
+
+A.sort()
+
+for i in range(0, N):
+    print(A[i][0], A[i][1])

@@ -1,0 +1,45 @@
+#Baekjoon 2751번: 수 정렬하기 2
+
+from collections import deque
+import random
+import sys
+
+input = sys.stdin.readline
+BUCKETS = 10
+DIGITS = 8
+
+N = int(input())
+arr = []
+
+def radix_sort(A):
+    queues = []
+    for i in range(BUCKETS):
+        queues.append(deque())
+    
+    n = len(A)
+    factor = 1
+    for d in range(DIGITS):
+        for i in range(n):
+            queues[(A[i] // factor) % BUCKETS].append(A[i])
+            
+        i = 0
+        
+        for b in range(BUCKETS):
+            while queues[b]:
+                A[i] = queues[b].popleft()
+                i += 1 
+        
+        factor *= BUCKETS
+        
+for i in range(N):
+    arr.append(int(input()))
+
+radix_sort(arr)
+
+for i in range(N):
+    if arr[i] < 0:
+        print(arr[i])
+
+for i in range(N):
+    if arr[i] >= 0:
+        print(arr[i])

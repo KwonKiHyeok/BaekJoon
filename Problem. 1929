@@ -1,0 +1,29 @@
+# backjoon 1929번: 소수 구하기
+
+import sys
+from math import sqrt
+input = sys.stdin.readline
+
+arr = list(map(int, input().split()))
+
+count = arr[0]
+
+def is_prime(N):
+    if N == 1:
+        return False
+        
+    if N == 2 or N == 3:
+        return True
+    
+    if N % 2 == 0:
+        return False
+
+    for i in range(3, int(sqrt(N) + 1), 2):
+        if N % i == 0:
+            return False
+    
+    return True
+    
+for i in range(arr[0], arr[1] + 1):
+    if is_prime(i):
+        print(i)

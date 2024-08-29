@@ -1,23 +1,30 @@
 # Baekjoon 4779번: 칸토어 집합
-
 import sys
 input = sys.stdin.readline
 
-T = int(input())
-P = [1, 1, 1, 2, 2, 3, 4]
-
-def solution():
-    white = [1, 2, 4]
-    blue = [1, 2, 3]
+def solution(left, M):
     
-    for i in range(7, 101):
-        if i % 2 == 0:
-            P.append(blue[-1] + blue[-3])
-            white.append(blue[-1] + blue[-3])
-        else:
-            P.append(white[-1] + white[-3])
-            blue.append(white[-1] + white[-3])
+    if M == 0:
+        return
+    
+    for i in range(left + M // 3, left + ((M // 3) * 2)):
+        ans[i] = " "
+    
+    solution(left, M // 3)
+    solution(left + ((M//3)*2), M // 3)
 
-solution()
-for i in range(T):
-    print(P[int(input())-1])
+res = []
+while True:
+    try:
+        N = int(input())
+        ans = ['-'] * (3 ** N)
+        solution(0, len(ans))
+        
+        res.append("".join(ans))
+    except:
+        break
+
+print(*res, sep = "\n")
+
+        
+        

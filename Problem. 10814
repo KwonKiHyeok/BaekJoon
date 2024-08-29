@@ -1,0 +1,18 @@
+# backjoon 10814번: 나이순 정렬
+
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+arr = []
+
+for i in range(N):
+    age, name = list(input().split())
+    dictionary = { "나이": int(age), "이름": name, "i": i }
+    arr.append(dictionary)
+
+arr.sort(key = lambda x : x["i"])
+arr.sort(key = lambda x : x["나이"])
+
+for i in range(N):
+    print(arr[i]["나이"], arr[i]["이름"])

@@ -1,0 +1,20 @@
+# Baekjoon 9095번: 1, 2, 3 더하기
+
+import sys
+input = sys.stdin.readline
+
+T = int(input())
+array = [None] * 11
+
+def solution():
+    array[1] = 1
+    array[2] = 2
+    array[3] = 4
+    
+    for i in range(4, 11):
+        array[i] = array[i-1] + array[i-2] + array[i-3]
+    
+solution()
+
+for i in range(T):
+    print(array[int(input())])

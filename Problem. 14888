@@ -1,0 +1,53 @@
+# Backjoon 14888번: 연산자 끼워넣기
+
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+index = []
+operator = []
+height, maxi, mini = 0, -999999999, 9999999999
+
+k = input().split()
+for i in k:
+    index.append(int(i))
+    
+p = input().split()
+for i in p:
+    operator.append(int(i))
+    height += int(i)
+
+def calculation(count, i, num):
+    if i == 0: # 덧셈
+        num += index[count]
+    elif i == 1: # 뺄셈
+        num -= index[count]
+    elif i == 2: # 곱셈
+        num *= index[count]
+    else: # 나눗셈
+        if num < 0:
+            num = ((num * (-1)) // index[count]) * (-1)
+        else:
+            num = num // index[count]
+    return num
+    
+def dfs(h, num):
+    global maxi, mini
+    
+    if h == height:
+        if maxi < num:
+            maxi = num
+        
+        if mini > num:
+            mini = num
+        return
+    
+    for i in range(4):
+        if operator[i] != 0:
+            operator[i] -= 1
+            dfs(h+1, calculation(h+1, i, num))
+            operator[i] += 1
+
+dfs(0, index[0])
+print(maxi)
+print(mini)

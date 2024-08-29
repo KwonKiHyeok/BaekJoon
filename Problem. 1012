@@ -1,0 +1,45 @@
+# backjoon 1012번: 유기농 배추
+
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10**9)
+
+def count_cabbage(graph): # DFS가 True로 끝날 경우, count +=1
+    count = 0
+    for i in range(N):
+        for j in range(M):
+            if DFS(graph, i, j):
+                count += 1
+    
+    return count 
+    
+def DFS(graph, x, y):
+    if x < 0 or x >= len(graph) or y < 0 or y >= len(graph[0]):
+        return False
+        
+    if graph[x][y] == 1: # 배추가 있는 곳이면, 방문 했다는 의미로 0으로 초기화하고 상하좌우 여부 확인. 
+        graph[x][y] = 0
+        DFS(graph, x - 1, y) # 상
+        DFS(graph, x + 1, y) # 하
+        DFS(graph, x, y - 1) # 좌
+        DFS(graph, x, y + 1) # 우
+        return True
+        
+    return False
+    
+T = int(input())
+for t in range(T):
+    M, N, K = map(int, input().split())
+
+    arr = [[] for _ in range(N)]
+
+    for i in range(N):
+        for j in range(M):
+            arr[i].append(0)
+
+    for i in range(K): # 배추 위치 저장 
+        a, b = map(int, input().split())
+        arr[b][a] = 1
+    
+    print(count_cabbage(arr))
+

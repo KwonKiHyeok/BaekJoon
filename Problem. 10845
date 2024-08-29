@@ -1,0 +1,61 @@
+# backjoon 10845번: 큐
+
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+queue = []
+start, rear = 0, 0
+
+def push(e):
+    global rear
+    rear += 1
+    queue.append(e)
+
+def pop():
+    global start
+    if start == rear:
+        print(-1)
+    else:
+        print(queue[start])
+        start += 1
+
+def size():
+    print(rear-start)
+
+def empty():
+    if start == rear:
+        print(1)
+    else:
+        print(0)
+
+def front():
+    global strat
+    if start == rear:
+        print(-1)
+    else:
+        print(queue[start])
+
+def back():
+    global rear
+    if start == rear:
+        print(-1)
+    else:
+        print(queue[rear-1])
+    
+
+for i in range(N):
+    x = list(input().split())
+    
+    if x[0] == "push":
+        push(int(x[1]))
+    elif x[0] == "front":
+        front()
+    elif x[0] == "back":
+        back()
+    elif x[0] == "size":
+        size()
+    elif x[0] == "empty":
+        empty()
+    elif x[0] == "pop":
+        pop()

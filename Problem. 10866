@@ -1,0 +1,60 @@
+# backjoon 10866번: 덱
+
+import sys
+input = sys.stdin.readline
+
+class Deque:
+    def __init__(self):
+        self.front = 0
+        self.back = 0
+        self.capacity = 10000
+        self.array = [None] * self.capacity
+        
+    def push_front(self, data):
+            self.array[self.front] = data
+            self.front = (self.front - 1 + self.capacity) % self.capacity
+            
+    def push_back(self, data):
+        self.back = (self.back + 1 + self.capacity) % self.capacity
+        self.array[self.back] = data
+        
+    def pop_front(self):
+        if self.front == self.back: print(-1)
+        else:
+            print(self.array[(self.front + 1 + self.capacity) % self.capacity])
+            self.front = (self.front + 1 + self.capacity) % self.capacity
+    
+    def pop_back(self):
+        if self.front == self.back: print(-1)
+        else:
+            print(self.array[self.back])
+            self.back = (self.back - 1 + self.capacity) % self.capacity
+    
+    def size(self):
+        print((self.back - self.front + self.capacity) % self.capacity)
+    
+    def empty(self):
+        if self.front == self.back: print(1)
+        else: print(0)
+    
+    def ffront(self):
+        if self.front == self.back: print(-1)
+        else: print(self.array[(self.front + 1 + self.capacity) % self.capacity])
+    
+    def bback(self):
+        if self.front == self.back: print(-1)
+        else: print(self.array[self.back])
+
+dq = Deque()
+N = int(input())
+for i in range(N):
+    x = list(input().split())
+    
+    if x[0] == "push_front": dq.push_front(int(x[1]))
+    elif x[0] == "push_back": dq.push_back(int(x[1]))
+    elif x[0] == "pop_front": dq.pop_front()
+    elif x[0] == "pop_back": dq.pop_back()
+    elif x[0] == "size": dq.size()
+    elif x[0] == "empty": dq.empty()
+    elif x[0] == "front": dq.ffront()
+    elif x[0] == "back": dq.bback()

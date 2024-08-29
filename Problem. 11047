@@ -1,0 +1,22 @@
+# backjoon 11047번: 동전 0
+import sys
+input = sys.stdin.readline
+
+N, K = map(int, input().split())
+arr = []
+for i in range(N):
+    A = int(input())
+    arr.append(A)
+    
+arr.sort(reverse = True)
+
+sum, i = 0, 0
+while K != 0:
+    if K >= arr[i]:
+        fraction = K // arr[i]
+        K -= arr[i] * fraction
+        sum += fraction
+    else:
+        i += 1
+
+print(sum)

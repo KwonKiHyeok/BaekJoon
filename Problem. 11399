@@ -1,0 +1,20 @@
+# backjoon 11399번: ATM
+
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+arr = input().split()
+
+for i in range(N):
+    arr[i] = int(arr[i])
+
+arr.sort()
+
+sum = 0
+
+for i in range(N):
+    for j in range(i + 1):
+        sum += arr[j]
+
+print(sum)

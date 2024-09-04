@@ -1,0 +1,55 @@
+# backjoon 10828번: 스택
+
+import sys
+input = sys.stdin.readline
+arr = []
+cnt = -1
+
+def push(para):
+    global cnt
+    cnt += 1
+    arr.append(para)
+
+def top():
+    global cnt
+    if cnt == -1:
+        print(cnt)
+    else:
+        print(arr[cnt])
+
+def pop():
+    global cnt
+    if cnt == -1:
+        print(-1)
+    else:
+        print(arr[cnt])
+        del arr[cnt]
+        cnt -= 1
+
+def size():
+    global cnt
+    print(cnt+1)
+
+def empty():
+    global cnt
+    if cnt == -1:
+        print(1)
+    else:
+        print(0)
+
+N = int(input())
+for i in range(N):
+    
+    x = list(input().split())
+    
+    if x[0] == "push":
+        push(int(x[1]))
+    elif x[0] == "top":
+        top()
+    elif x[0] == "pop":
+        pop()
+    elif x[0] == "size":
+        size()
+    else:
+        empty()
+    

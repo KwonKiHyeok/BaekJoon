@@ -1,0 +1,32 @@
+#Baekjoon 1920번: 수 찾기
+
+# 정수 입력받고, 문자열을 자른 뒤 int형으로 자료형을 바꾸고 리스트에 저장
+N = int(input())
+list1 = input()
+list1 = list1.split(" ")
+
+M = int(input())
+list2 = input()
+list2 = list2.split(" ")
+
+list1.sort()
+
+# 이분탐색 알고리즘 적용
+for i in list2:
+    low, high = 0, N-1
+    
+    while low <= high:
+        # 중앙값
+        mid = (low + high)//2
+        
+        if i == list1[mid]:
+            print(1)
+            break
+        elif i > list1[mid]: # 찾는 수가 더 클 경우
+            low = mid+1
+        elif i < list1[mid]: # 찾는 수가 더 작을 경우
+            high = mid-1
+    
+    # 찾는 수가 없는 경우
+    if low > high:
+        print(0)

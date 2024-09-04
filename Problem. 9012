@@ -1,0 +1,27 @@
+#Baekjoon 9012번: 괄호
+
+N = int(input())
+
+for i in range(N):
+    VPS = input()
+    
+    if len(VPS) % 2 != 0: # 홀수일 경우 NO
+        print("NO")
+        continue
+    
+    count = 0
+    
+    for index in range(len(VPS)):
+        if VPS[index] == '(':
+            count += 1
+        elif VPS[index] == ')':
+            if count < 1:
+                print("NO")
+                count = -99999
+                break
+            count -= 1
+    
+    if count == 0:
+        print("YES")
+    elif count > -100:
+        print("NO")

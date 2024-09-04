@@ -1,0 +1,17 @@
+#Baekjoon 1181번: 단어 정렬
+
+N = int(input())
+
+str_list = []
+
+for i in range(0, N):
+    X = input()
+    str_list.append(X)
+
+str_list = list(set(str_list)) 
+str_list.sort()
+str_list.sort(key = lambda x: len(x)) 
+
+
+for word in str_list:
+    print(word)

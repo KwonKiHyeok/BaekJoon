@@ -1,0 +1,16 @@
+#Baekjoon 11729번: 하노이 탑 이동 순서
+
+number = int(input())
+cnt = (2 ** number) - 1
+
+def hanoi(N, a, b, c):
+    
+    if N == 1:
+        print(a, b)
+    else:
+        hanoi(N-1, a, c, b)
+        print(a, b)
+        hanoi(N-1, c, b, a)
+        
+print(cnt)
+hanoi(number, 1, 3, 2)

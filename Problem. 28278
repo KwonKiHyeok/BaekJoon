@@ -1,0 +1,54 @@
+#Baekjoon 28278번: 스택2
+
+import sys
+input = sys.stdin.readline
+arr = []
+cnt = -1
+
+def push(para):
+    global cnt
+    cnt += 1
+    arr.append(para)
+
+def top():
+    global cnt
+    if cnt == -1:
+        print(cnt)
+    else:
+        print(arr[cnt])
+
+def pop():
+    global cnt
+    if cnt == -1:
+        print(-1)
+    else:
+        print(arr[cnt])
+        del arr[cnt]
+        cnt -= 1
+
+def size():
+    global cnt
+    print(cnt+1)
+
+def empty():
+    global cnt
+    if cnt == -1:
+        print(1)
+    else:
+        print(0)
+
+N = int(input())
+for i in range(N):
+    
+    x = list(input().split())
+    
+    if x[0] == "1":
+        push(int(x[1]))
+    elif x[0] == "2":
+        pop()
+    elif x[0] == "3":
+        size()
+    elif x[0] == "4":
+        empty()
+    else:
+        top()

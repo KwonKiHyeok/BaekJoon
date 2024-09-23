@@ -23,16 +23,17 @@ del token[0]
 temp_ans = 0
 minus_flag = False
 
+
 for i in range(len(token)):
-    if i <= len(token)-2:
-        if token[i] == '+':
+    
+    if token[i] == '-':
+        minus_flag = True
+    else:
+        if type(token[i]) == int:
             if minus_flag == True:
-                temp_ans += token[i+1]
+                temp_ans += token[i]
             else:
-                ans += token[i+1]
-        elif token[i] == '-':
-            minus_flag = True
-            temp_ans += token[i+1]
+                ans += token[i]
 
 print(ans-temp_ans)
             

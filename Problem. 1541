@@ -1,0 +1,39 @@
+# Baekjoon 1541번: 잃어버린 괄호
+import sys
+input = sys.stdin.readline
+
+equation = input().strip()
+token = []
+num = ""
+
+for i in range(len(equation)): # 파싱 알고리즘 토큰화
+    if equation[i] == '-' or equation[i] == '+':
+        token.append(equation[i])
+    else:
+        num += equation[i]
+        if i <= len(equation)-2:
+            if equation[i+1] == '-' or equation[i+1] == '+':
+                token.append(int(num))
+                num = ""
+        else:
+            token.append(int(num))
+
+ans = token[0]
+del token[0]
+temp_ans = 0
+minus_flag = False
+
+for i in range(len(token)):
+    if i <= len(token)-2:
+        if token[i] == '+':
+            if minus_flag == True:
+                temp_ans += token[i+1]
+            else:
+                ans += token[i+1]
+        elif token[i] == '-':
+            minus_flag = True
+            temp_ans += token[i+1]
+
+print(ans-temp_ans)
+            
+        

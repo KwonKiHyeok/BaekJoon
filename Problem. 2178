@@ -1,0 +1,38 @@
+# Baekjoon 2178번: 미로 탐색
+import sys
+from collections import deque 
+input = sys.stdin.readline
+
+N, K = map(int, input().split())
+maze = [[] for _ in range(N)]
+visited = [[] for _ in range(N+1)]
+
+for i in range(N):
+    for j in range(K):
+        visited[i].append(0)
+        
+for i in range(N):
+    maze_num = input()
+    for j in maze_num:
+        maze[i].append(j)
+
+def BFS():
+    visited[0][0] = 1
+    queue = deque()
+    queue.append((0, 0))
+    
+    while queue:
+        y, x = queue.popleft()
+        
+        if (y, x) == (N-1, K-1):
+            return visited[y][x]
+        
+        for (j, i) in ((y-1, x), (y+1, x), (y, x-1), (y, x+1)):
+
+            if 0 <= j < N and 0 <= i < K and visited[j][i] == 0 and maze[j][i] == '1':
+                visited[j][i] = visited[y][x] + 1
+                queue.append((j, i))
+
+ans = BFS()
+print(ans)
+            

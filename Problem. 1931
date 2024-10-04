@@ -1,4 +1,4 @@
-# Baekjoon 1913번: 회의실 배정
+# Baekjoon 1931번: 회의실 배정
 import sys
 input = sys.stdin.readline
 

@@ -1,0 +1,23 @@
+# Baekjoon 1913번: 회의실 배정
+import sys
+input = sys.stdin.readline
+
+N = int(input())
+room = []
+
+for i in range(N):
+    start, end = map(int, input().split())
+    room.append((start, end))
+
+
+room = sorted(room, key = lambda x: x[0])
+room = sorted(room, key = lambda x: x[1])
+room_max = 0
+present_end = 0
+
+for s, e in room:
+    if present_end <= s:
+        present_end = e
+        room_max += 1
+
+print(room_max)

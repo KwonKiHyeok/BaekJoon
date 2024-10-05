@@ -1,0 +1,43 @@
+# Baekjoon 14940번: 쉬운 최단거리
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+n, m = map(int, input().split())
+arr = []
+sol_arr = [[None] * m for _ in range(n)]
+des_x, des_y = -1, -1
+
+for i in range(n):
+    distance = list(map(int, input().split()))
+    arr.append(distance)
+    
+    for j in range(m):
+        if distance[j] == 2:
+            des_x = j
+            des_y = i
+        elif distance[j] == 0:
+            sol_arr[i][j] = 0
+            
+def BFS():
+    sol_arr[des_y][des_x] = 0
+    q = deque([(des_x, des_y)])
+    
+    while q:
+        x, y = q.popleft()
+        
+        for (u, v) in [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]:
+            
+            if 0 <= u < m and 0 <= v < n and sol_arr[v][u] is None:
+                sol_arr[v][u] = sol_arr[y][x] + 1
+                q.append((u, v))
+
+BFS()
+
+for i in range(n):
+    for j in range(m):
+        if sol_arr[i][j] is None:
+            sol_arr[i][j] = -1
+
+    print(" ".join(map(str, sol_arr[i])))
+

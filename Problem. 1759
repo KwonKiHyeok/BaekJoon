@@ -12,20 +12,16 @@ def DFS(cstr, m):
     
     if m == C:
         if len(cstr) == L:
-            temp = list(cstr)
             count = 0
             flag = False
-            for char in temp:
+            for char in cstr:
                 if char in 'aeiou':
                     flag = True
                 else:
                     count += 1 
             
             if flag == True and 1 < count:
-                temp.sort()
-                temp = ''.join(temp)
-                if cstr == temp:
-                    print(cstr)
+                print(cstr)
         return
     
     DFS(cstr + code[m], m+1)

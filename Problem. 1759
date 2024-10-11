@@ -1,0 +1,34 @@
+# Baekjoon 1759번: 암호 만들기
+
+import sys
+input = sys.stdin.readline
+
+L, C = map(int, input().split())
+code = input().split()
+code.sort()
+
+def DFS(cstr, m):
+    global L
+    
+    if m == C:
+        if len(cstr) == L:
+            temp = list(cstr)
+            count = 0
+            flag = False
+            for char in temp:
+                if char in 'aeiou':
+                    flag = True
+                else:
+                    count += 1 
+            
+            if flag == True and 1 < count:
+                temp.sort()
+                temp = ''.join(temp)
+                if cstr == temp:
+                    print(cstr)
+        return
+    
+    DFS(cstr + code[m], m+1)
+    DFS(cstr, m+1)
+    
+DFS("", 0)

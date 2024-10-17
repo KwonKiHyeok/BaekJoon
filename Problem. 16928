@@ -1,0 +1,51 @@
+# Baekjoon 16928번: 뱀과 사다리 게임
+
+import sys
+from collections import deque
+input = sys.stdin.readline
+
+N, M = map(int, input().split())
+visited = [0 for _ in range(101)] 
+ladder = [tuple(map(int, input().split())) for _ in range(N)]
+snake = [tuple(map(int, input().split())) for _ in range(M)]
+visited_ladder = [None for _ in range(101)]
+visited_snake = [None for _ in range(101)]
+
+for x, y in ladder:
+    visited_ladder[x] = y
+
+for u, v in snake:
+    visited_snake[u] = v
+
+res = 0
+def BFS(m):
+    
+    queue = deque([])
+    queue.append(m)
+    visited[m] = 1
+    
+    while queue:
+        pre = queue.popleft()
+        
+        if pre == 100: # 도착한 경우
+            return visited[pre] - 1
+        
+        for i in range(1, 7):
+            num = pre + i
+            
+            if num > 100:
+                continue
+            
+            if visited_ladder[num]: # 사다리에 방문한 경우
+                num = visited_ladder[num]
+            
+            if visited_snake[num]: # 뱀에 방문한 경우
+                num = visited_snake[num]
+                
+            if visited[num] == 0: # 비어있는 경우
+                visited[num] = visited[pre] + 1
+                queue.append(num)
+            
+            
+result = BFS(1)
+print(result)
